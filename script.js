@@ -1,47 +1,3 @@
-// 🔍 Suggestions Data
-let places = ["goa", "maldives", "kedarnath", "golden temple", "india", "france"];
-
-// 🔍 AUTO SUGGESTIONS
-function showSuggestions() {
-    let input = document.getElementById("search").value.toLowerCase();
-    let box = document.getElementById("suggestions");
-
-    box.innerHTML = "";
-
-    places.forEach(place => {
-        if (place.includes(input) && input !== "") {
-            box.innerHTML += `<div onclick="selectSuggestion('${place}')">${place}</div>`;
-        }
-    });
-}
-
-function selectSuggestion(value) {
-    document.getElementById("search").value = value;
-    document.getElementById("suggestions").innerHTML = "";
-}
-
-// 🎤 VOICE SEARCH
-function startVoice() {
-    if (!('webkitSpeechRecognition' in window)) {
-        alert("Voice not supported");
-        return;
-    }
-
-    let recognition = new webkitSpeechRecognition();
-    recognition.start();
-
-    recognition.onresult = function(event) {
-        let speech = event.results[0][0].transcript.toLowerCase();
-        document.getElementById("search").value = speech;
-        searchPlace();
-    };
-}
-
-// ⭐ RATING
-function rate(star) {
-    alert("You rated " + star + " ⭐");
-}
-
 // 🔍 MAIN SEARCH FUNCTION
 function searchPlace() {
 
@@ -55,46 +11,56 @@ function searchPlace() {
         return;
     }
 
-    // 🌊 BEACH (ANY beach search)
-    if (input.includes("beach") || input.includes("goa") || input.includes("maldives")) {
+    // 🌊 BEACH
+    if (input.includes("beach") || input.includes("beaches") || input.includes("goa") || input.includes("maldives")) {
         result.innerHTML = `
         <h2>🌊 Beach Results</h2>
 
         <div class="card">
-            <h3>${input.toUpperCase()} Beach</h3>
-            <img src="https://picsum.photos/300/200?random=1">
+            <h3>Maldives Beach</h3>
+            <img src="images/maldives.jpg ">
         </div>
 
         <div class="card">
-            <img src="https://picsum.photos/300/200?random=2">
+            <h3>Goa Beach</h3>
+            <img src="images/goa.jpg">
         </div>
         `;
     }
 
-    // 🛕 TEMPLE (ANY temple search)
-     {
+    // 🛕 TEMPLE
+    else if (
+        input.includes("temple") || 
+        input.includes("mandir") || 
+        input.includes("kedarnath") ||
+        input.includes("vaishno") ||
+        input.includes("tirupati") ||
+        input.includes("golden temple")
+    ) {
         result.innerHTML = `
         <h2>🛕 Temple Results</h2>
 
         <div class="card">
-            <h3>${input.toUpperCase()}</h3>
-            <img src="https://picsum.photos/300/200?random=3">
-        </div>
+            <h3>Famous Temple</h3>
+            <img src="images/golden_temple.jpeg">
+        </divC:/Users/User/Desktop/travel-website/images/badrinath.jpg>
 
         <div class="card">
-            <img src="https://picsum.photos/300/200?random=4">
+            <h3>Spiritual Place</h3>
+            <img src="images/badrinath.jpg">
         </div>
         `;
     }
 
-    // 🌍 COUNTRY (ANY country → REAL API)
+    // 🌍 COUNTRY (API)
     else {
         getCountryData(input);
     }
 }
 
-// 🌍 COUNTRY API FUNCTION (WORKING FOR ANY COUNTRY)
+// 🌍 COUNTRY FUNCTION
 async function getCountryData(name) {
+
     let result = document.getElementById("result");
 
     result.innerHTML = "<h2>Loading... ⏳</h2>";
@@ -111,9 +77,10 @@ async function getCountryData(name) {
         <h2>🌍 ${country.name.common}</h2>
 
         <div class="card">
-            <img src="${country.flags.png}">
-            <p><b>Capital:</b> ${country.capital ? country.capital[0] : "N/A"}</p>
-            <p><b>Region:</b> ${country.region}</p>
+             <h3>SWITZERLAND</h3>
+
+            <img src="images/switz.jpeg">
+           
 
             <div class="rating">
                 <span onclick="rate(1)">⭐</span>
@@ -125,11 +92,16 @@ async function getCountryData(name) {
         </div>
 
         <div class="card">
-            <h3>Famous Place</h3>
-            <img src="https://picsum.photos/300/200?random=5">
+            <h3>INDIA</h3>
+            <img src="images/india.jpeg">
         </div>
         `;
     } catch (error) {
         result.innerHTML = "<h2>❌ No country found</h2>";
     }
+}
+
+// ⭐ RATING FUNCTION
+function rate(star) {
+    alert("You rated " + star + " ⭐");
 }
