@@ -41,12 +41,12 @@ function searchPlace() {
         <h2>🛕 Temple Results</h2>
 
         <div class="card">
-            <h3>Famous Temple</h3>
+            <h3>Golden Temple</h3>
             <img src="images/golden_temple.jpeg">
-        </divC:/Users/User/Desktop/travel-website/images/badrinath.jpg>
+        </div>
 
         <div class="card">
-            <h3>Spiritual Place</h3>
+            <h3>Badrinath</h3>
             <img src="images/badrinath.jpg">
         </div>
         `;
